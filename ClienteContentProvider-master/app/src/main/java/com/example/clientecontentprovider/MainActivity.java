@@ -23,9 +23,7 @@ public class MainActivity extends AppCompatActivity {
                 UsuarioContrato.COLUMNS_NAME,
                 null, null, null
         );
-
         if (cursor != null) {
-
             while (cursor.moveToNext()) {
                 Log.d("Cliente",
                         cursor.getInt(0) + " - " + cursor.getString(1)
@@ -36,51 +34,34 @@ public class MainActivity extends AppCompatActivity {
                     "No regresa"
             );
         }
-
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
         nombre = findViewById(R.id.nombre);
         apellido = findViewById(R.id.apellido);
         id = findViewById(R.id.id);
-
         Cursor c = getContentResolver().query(UserDictionary.Words.CONTENT_URI,
                 new String[]{UserDictionary.Words.WORD,
                         UserDictionary.Words.LOCALE},
                 null, null, null
         );
-
         if (c != null) {
             while (c.moveToNext()) {
                 Log.d("Uri",
                         c.getString(0) + " - " + c.getString(1)
-                );
-            }
-        }
-
+                ); }}
         findViewById(R.id.btnInsert).setOnClickListener(
                 view -> {
-
                     ContentValues cv = new ContentValues();
-
-
                     cv.put(UsuarioContrato.COLUMN_FIRSTNAME, nombre.getText().toString());
                     cv.put(UsuarioContrato.COLUMN_LASTNAME, apellido.getText().toString());
-
-                    Uri uriInsert = getContentResolver().insert(
-                            UsuarioContrato.CONTENT_URI,
-                            cv
-                    );
-
+                    Uri uriInsert = getContentResolver().insert(UsuarioContrato.CONTENT_URI, cv);
                     Log.d("Cliente", uriInsert.toString());
                     Toast.makeText(this, "Usuario agregado: \n" +
                             uriInsert.toString(), Toast.LENGTH_SHORT).show();
-
-
                 }
         );
 
@@ -109,7 +90,6 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btnConsultar).setOnClickListener(v -> {
             consultarContentProvider();
         });
-
         //DELETE, borra buscando un id especifico
         findViewById(R.id.btnDelete).setOnClickListener(v -> {
 
@@ -123,10 +103,7 @@ public class MainActivity extends AppCompatActivity {
 
         findViewById(R.id.btnQueryNL).setOnClickListener(view -> {
 
-            // Clausula de seleccion
             String selectionClause = UsuarioContrato.COLUMN_FIRSTNAME + " = ? AND " + UsuarioContrato.COLUMN_LASTNAME + " = ?";
-
-            // Argumentos de la seleccion
             String[] selectionArgs = {nombre.getText().toString(), apellido.getText().toString()};
 
             Cursor cursor = getContentResolver().query(
@@ -134,9 +111,7 @@ public class MainActivity extends AppCompatActivity {
                     UsuarioContrato.COLUMNS_NAME,
                     selectionClause, selectionArgs, null
             );
-
             if (cursor != null) {
-
                 while (cursor.moveToNext()) {
                     Log.d("ClienteEspeficio",
                             cursor.getInt(0) + " - " + cursor.getString(1)
@@ -148,6 +123,5 @@ public class MainActivity extends AppCompatActivity {
                 );
             }
         });
-
     }
 }

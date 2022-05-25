@@ -35,8 +35,8 @@ public class MainActivity extends AppCompatActivity {
                 User u = new User();
 
                 //u.uid = 0;
-                u.firstName = "John";
-                u.lastName = "Cena";
+                u.firstName = "Karina";
+                u.lastName = "Niño";
 
                 dao.insertAll(u);
                 /*
@@ -84,8 +84,8 @@ public class MainActivity extends AppCompatActivity {
                         User u = new User();
 
                         u.uid = 20;
-                        u.firstName = "John";
-                        u.lastName = "Cena";
+                        u.firstName = "Karina";
+                        u.lastName = "Paramo";
 
                         int elementos = dao.deleteUser(u);
 
@@ -94,36 +94,21 @@ public class MainActivity extends AppCompatActivity {
                 }
         );
 
-        //QUERY POR NOMBRE Y APELLIDO
+        //QUERY
         findViewById(R.id.btnSelect2).setOnClickListener(view -> {
-
             AppDatabase db = AppDatabase.getDatabaseInstance(getApplication());
             UserDao dao = db.userDao();
-
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-
                 AppDatabase.databaseWriteExecutor.execute(() -> {
-                    User user = dao.findByName("John", "Cena");
+                    User user = dao.findByName("Karina", "Paramo");
                     Log.i("User por nombre: ", user.uid + " " + user.firstName + " " + user.lastName);
-
-
-                    /*
-
-                    dao.getAll().stream().forEach(user -> {
-                        Log.i("Consulta User",
-                                user.uid + " " + user.firstName);
-                    });
-
-                     */
                 });
-
             } else {
                 AppDatabase.databaseWriteExecutor.execute(() -> {
-                    User user = dao.findByName("John", "Cena");
+                    User user = dao.findByName("Susana", "Nino");
                     Log.i("User por nombre: ", user.uid + " " + user.firstName);
                 });
             }
         });
-
     }
 }
